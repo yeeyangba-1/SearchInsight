@@ -1,0 +1,19 @@
+# LLM / Agent workflow
+langchain>=0.3.0
+langchain-openai>=0.2.0
+langgraph>=0.2.0
+
+# Data processing
+pandas>=2.2.0
+numpy>=2.0.0
+
+# Visualization
+matplotlib>=3.9.0
+
+# Web UI
+streamlit>=1.32.0
+
+# File loading and environment
+python-dotenv>=1.0.0
+openpyxl>=3.1.0
+xlrd>=2.0.0

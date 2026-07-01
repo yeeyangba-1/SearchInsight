@@ -1,0 +1,37 @@
+# Environment variables and secrets
+.env
+*.env
+.streamlit/secrets.toml
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Runtime uploads and logs
+uploads/
+*.log
+
+# Generated outputs
+outputs/*.csv
+outputs/*.md
+outputs/charts/*.png
+outputs/reports/*.md
+outputs/reports/*.pdf
+
+# Keep source example data, but ignore ad-hoc large local datasets
+data/*.xlsx
+data/*.xls
