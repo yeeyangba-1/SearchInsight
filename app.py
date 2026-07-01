@@ -266,7 +266,7 @@ hr {
 # ============================================================
 def render_searchinsight_page():
     """Render the minimal SearchInsight diagnosis page."""
-    st.title("SearchInsight：基于 Multi-Agent 的 AI搜索效果诊断与优化平台")
+    st.title("SearchInsight：基于 Multi-Agent 工作流的 AI搜索效果诊断与优化平台")
     st.write(
         "上传 AI 搜索日志后，系统会通过 8 Agent 流程完成字段校验、日志清洗、Query 分类、"
         "Bad Case 识别、图表生成、LLM Judge 复核和 Markdown 诊断报告。"
@@ -433,19 +433,19 @@ with st.sidebar:
 
     agents_info = [
         ("01", "TASK", "任务理解"),
-        ("02", "QUALITY", "数据质量"),
-        ("03", "CLEAN", "数据清洗"),
-        ("04", "EDA", "探索分析"),
-        ("05", "VIZ", "可视化"),
-        ("06", "MODEL", "机器学习"),
-        ("07", "INSIGHT", "业务洞察"),
-        ("08", "REPORT", "报告生成"),
+        ("02", "QUALITY", "日志字段检查"),
+        ("03", "CLEAN", "日志清洗"),
+        ("04", "SEARCH EDA", "搜索统计分析"),
+        ("05", "VIZ", "诊断图表"),
+        ("06", "EVAL", "回答质量评估"),
+        ("07", "INSIGHT", "优化洞察"),
+        ("08", "REPORT", "诊断报告"),
     ]
     for num, abbr, name in agents_info:
         st.markdown(f"""
         <div style="display:flex; align-items:center; gap:10px; padding:4px 0; font-size:11px;">
             <span style="color:#00e5ff; font-weight:700; min-width:20px;">{num}</span>
-            <span style="color:#a0a0b8; font-weight:600; min-width:70px;">{abbr}</span>
+            <span style="color:#a0a0b8; font-weight:600; min-width:86px;">{abbr}</span>
             <span style="color:#5a5a6a; font-size:10px;">{name}</span>
         </div>
         """, unsafe_allow_html=True)
@@ -453,7 +453,7 @@ with st.sidebar:
     st.markdown("<hr style='border-color:#1a1a2e;'>", unsafe_allow_html=True)
 
     st.markdown('<div style="font-size:11px; color:#7c4dff; letter-spacing:2px; margin-bottom:8px;">// TECH STACK</div>', unsafe_allow_html=True)
-    for tech in ["LangGraph", "DeepSeek API", "Pandas", "Scikit-Learn", "Matplotlib", "Streamlit"]:
+    for tech in ["LangGraph", "DeepSeek API", "Pandas", "Matplotlib", "Streamlit", "LLM Judge"]:
         st.markdown(f'<div style="color:#5a5a6a; font-size:10px; padding:2px 0;">&gt; {tech}</div>', unsafe_allow_html=True)
 
 # ============================================================
@@ -466,10 +466,10 @@ if "SearchInsight" in app_mode:
 st.markdown("""
 <div style="margin-bottom: 24px;">
     <div style="font-size:36px; font-weight:700; color:#e8e8f8; letter-spacing:6px;">
-        DATA<span style="color:#00e5ff;">MIND</span>
+        SEARCH<span style="color:#00e5ff;">INSIGHT</span>
     </div>
     <div style="font-size:12px; color:#4a4a6a; letter-spacing:3px; margin-top:4px;">
-        MULTI-AGENT DATA ANALYSIS PLATFORM // LANGGRAPH + DEEPSEEK
+        AI SEARCH QUALITY DIAGNOSIS PLATFORM // LANGGRAPH + LLM JUDGE
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -522,7 +522,7 @@ with col2:
     st.markdown('<div style="font-size:11px; color:#00e5ff; letter-spacing:2px; margin-bottom:8px;">02 // ANALYSIS QUERY</div>', unsafe_allow_html=True)
     user_query = st.text_area(
         "query",
-        placeholder="> 分析用户消费行为，找出高价值客户画像\n> 按城市和品类分析订单分布，进行客户分群\n> 预测客户流失风险并给出干预建议\n> 探索销售额的驱动因素",
+        placeholder="> 请分析这批 AI 搜索日志，找出 Query 类型分布、Bad Case 原因和知识库未利用问题\n> 请重点关注用户不满意、检索为空、疑似答非所问的样本\n> 请生成知识库补充、Prompt 优化和检索规则优化建议",
         height=130,
         label_visibility="collapsed"
     )
@@ -559,7 +559,7 @@ if run_analysis:
         "Agent 3:": (2, 37, "03 CLEAN"),
         "Agent 4:": (3, 50, "04 EDA"),
         "Agent 5:": (4, 62, "05 VIZ"),
-        "Agent 6:": (5, 75, "06 MODEL"),
+        "Agent 6:": (5, 75, "06 EVAL"),
         "Agent 7:": (6, 87, "07 INSIGHT"),
         "Agent 8:": (7, 100, "08 REPORT"),
     }
@@ -656,7 +656,7 @@ if run_analysis:
                 ("02 DATA QUALITY", final_state.get("quality_report", {})),
                 ("03 DATA CLEANING", final_state.get("cleaning_report", {})),
                 ("04 EDA RESULT", final_state.get("eda_result", {})),
-                ("05 MODEL RESULT", final_state.get("model_result", {})),
+                ("05 EVAL RESULT", final_state.get("model_result", {})),
             ]
             for title, data in sections:
                 with st.expander(title):
