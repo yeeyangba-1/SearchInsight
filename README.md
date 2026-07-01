@@ -111,8 +111,6 @@ streamlit run app.py
 ### 诊断报告
 ![report](docs/assets/report.png)
 
-> 截图文件可后续手动放入 `docs/assets/`。
-
 ## 输出内容
 
 项目会输出：
@@ -125,6 +123,10 @@ streamlit run app.py
 - 知识库补充建议
 - Prompt 优化建议
 - Markdown 诊断报告
+
+## 如何接入已有 AI 搜索 / RAG 系统
+
+SearchInsight 不替代原有 RAG 问答链路，而是作为质量诊断层接在问答系统后面。原系统每次问答产生 `query`、`answer`、`retrieved_docs`、`user_feedback` 等日志后，可以定期导出为 CSV/Excel，交由 SearchInsight 分析 Bad Case 类型、知识库未利用问题和 Prompt 优化方向，从而辅助团队持续改进检索、知识库和回答生成效果。
 
 ## 项目结构
 
